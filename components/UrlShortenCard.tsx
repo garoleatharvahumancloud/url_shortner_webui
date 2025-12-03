@@ -22,7 +22,7 @@ export function UrlShortenCard() {
   const [shortUrl, setShortUrl] = useState("");
 
   return (
-    <Card className="w-[420px] p-6 shadow-xl rounded-2xl justify-center items-center" >
+    <Card className="w-100 p-6 shadow-xl rounded-2xl justify-center items-center" >
       <CardContent className="space-y-6">
 
         {/* Long URL Section */}

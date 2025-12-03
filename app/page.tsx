@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import { UrlShortenCard } from "@/components/UrlShortenCard";
+import { QrCodeCard } from "@/components/QrCodeCard";
 import Image from "next/image";
 
 export default function HomePage() {
@@ -13,6 +14,7 @@ export default function HomePage() {
         {/* Left side - Card */}
         <div className="flex-1 flex justify-center">
           <UrlShortenCard />
+          <QrCodeCard />
         </div>
 
         {/* Right side - Illustration */}
