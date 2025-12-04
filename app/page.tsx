@@ -18,9 +18,9 @@ export default function HomePage() {
         </div>
 
         {/* Right side - Illustration */}
-        <div className="flex-1 hidden md:flex justify-center">
+        <div className=" flex-1 hidden md:flex justify-center">
           <Image
-            src="/illustration.png"   //image placeholder_ag
+            src="/bgdsadf.jpg"   //image placeholder_ag
             alt="Illustration"
             width={450}
             height={450}
