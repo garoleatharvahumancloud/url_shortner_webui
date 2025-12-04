@@ -59,7 +59,7 @@ export function LoginForm({
               </FieldDescription>
             </FieldGroup>
           </form>
-          <div className="bg-muted relative hidden md:block">
+          <div className="bg-muted relative hidden h-full md:block">
             <Image
               src="/placeholder.jpg"
               alt="Login background"
