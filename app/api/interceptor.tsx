@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8081",  // Spring Boot URL
-  withCredentials: true,             // if using cookies
+  baseURL: "http://localhost:8080",
+  withCredentials: false,
 });
 
 api.interceptors.request.use(
   (config) => {
-    // add bearer token if needed
+    // attach token if needed
     return config;
   },
   (error) => Promise.reject(error)
