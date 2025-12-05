@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import {
   Card,
@@ -39,18 +40,29 @@ const analyticsData = [
 ]
 
 export default function HistoryPage() {
+  const router = useRouter()
   const [copiedId, setCopiedId] = useState<string | null>(null)
 
   const handleCopy = async (urlId: string, text: string) => {
     await navigator.clipboard.writeText(text)
     setCopiedId(urlId)
     toast.success("Short URL copied!")
-
     setTimeout(() => setCopiedId(null), 1000)
   }
 
   return (
     <div className="p-6 md:p-10 w-[90%] mx-auto">
+
+      {/* Home Button */}
+      <div className="flex justify-end mb-4">
+        <Button
+          onClick={() => router.push("/")}
+          className="bg-[#224fa2] hover:bg-[#3A63B0] text-white"
+        >
+          Home
+        </Button>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
         <div className="md:col-span-4">
           <Card>
@@ -94,7 +106,9 @@ export default function HistoryPage() {
                           variant="outline"
                           size="icon"
                           className="relative"
-                          onClick={() => handleCopy(url.id, url.shortUrl)}
+                          onClick={() =>
+                            handleCopy(url.id, url.shortUrl)
+                          }
                         >
                           {copiedId === url.id ? (
                             <Check className="h-4 w-4 text-green-600" />
@@ -110,6 +124,7 @@ export default function HistoryPage() {
             </CardContent>
           </Card>
         </div>
+
         <div className="md:col-span-2">
           <AnalyticsChart dataPoints={analyticsData} />
         </div>

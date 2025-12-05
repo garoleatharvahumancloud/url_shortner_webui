@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { registerUser } from "@/app/api/methods"; // <-- your function
+import { registerUser } from "@/app/api/methods";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,8 +13,11 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 export function SignupForm({ className, ...props }: React.ComponentProps<"div">) {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -34,7 +37,10 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
       });
 
       console.log("REGISTER SUCCESS:", response);
+
       alert("Account created successfully!");
+
+      router.push("/login"); // <<< ROUTE TO LOGIN
 
     } catch (error) {
       console.error("REGISTER ERROR:", error);
@@ -100,7 +106,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
 
               <FieldDescription className="text-center">
                 Already have an account?{" "}
-                <a href="#" className="text-[#0000FF]">
+                <a href="/login" className="text-[#0000FF]">
                   Sign in
                 </a>
               </FieldDescription>
@@ -110,7 +116,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
           <div className="bg-muted relative hidden md:block">
             <Image
               src="/signupplaceholder.jpg"
-              alt="Login background"
+              alt="Signup background"
               width={500}
               height={500}
               className="object-cover rounded-lg"
