@@ -40,7 +40,6 @@ export function LoginForm({
                 <FieldLabel htmlFor="password">Password</FieldLabel>
                 <Input id="password" type="password" required />
                 <div className="flex items-center">
-
                   <a
                     href="#"
                     className="ml-auto text-[#0000FF] text-sm underline-offset-2 hover:underline"
@@ -49,7 +48,6 @@ export function LoginForm({
                   </a>
                 </div>
               </Field>
-
               <Field>
                 <Button className="bg-[#224FA2] hover:bg-[#3A63B0]" type="submit">Login</Button>
               </Field>
@@ -59,15 +57,15 @@ export function LoginForm({
               </FieldDescription>
             </FieldGroup>
           </form>
-          <div className="bg-muted relative hidden h-full md:block">
-            <Image
-              src="/placeholder.jpg"
-              alt="Login background"
-              width={500}
-              height={500}
-              className="object-cover rounded-lg"
-            />
-          </div>
+            <div className="bg-muted relative hidden md:flex items-center justify-center">
+    <Image
+      src="/placeholder.jpg"
+      alt="Login background"
+      width={500}
+      height={500}
+      className="object-cover h-full w-full"
+    />
+  </div>
         </CardContent>
       </Card>
     </div>
