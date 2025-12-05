@@ -1,36 +1,44 @@
-"use client"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import Image from "next/image"
+"use client";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import { loginUser } from "@/app/api/methods"
-import { useState } from "react"
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { loginUser } from "@/app/api/methods";
+import { useState } from "react";
+import { useRouter } from "next/navigation";   // ✅ ADD THIS
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const router = useRouter();                  // ✅ INIT ROUTER
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
+  e.preventDefault();
 
-    try {
-      const result = await loginUser({
-        email,
-        password,
-      })
+  try {
+    const result = await loginUser({
+      email,
+      password,
+    });
 
-      console.log("LOGIN SUCCESS:", result)
-    } catch (error) {
-      console.error("LOGIN ERROR:", error)
-    }
+    // Save token
+    localStorage.setItem("token", result.token);
+
+    // Redirect to HOME (not history)
+    window.location.href = "/";
+
+  } catch (error) {
+    console.error("LOGIN ERROR:", error);
   }
+};
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -38,7 +46,6 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
         <CardContent className="grid p-0 md:grid-cols-2">
           <form className="p-6 md:p-8" onSubmit={handleLogin}>
             <FieldGroup>
-              
               <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
                 <p className="text-muted-foreground text-balance">
@@ -60,10 +67,10 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 
               <Field>
                 <FieldLabel htmlFor="password">Password</FieldLabel>
-                <Input 
-                  id="password" 
-                  type="password" 
-                  required 
+                <Input
+                  id="password"
+                  type="password"
+                  required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -76,9 +83,11 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
               </Field>
 
               <FieldDescription className="text-center">
-                Don&apos;t have an account? <a href="#" className="text-[#0000FF]">Sign up</a>
+                Don&apos;t have an account?{" "}
+                <a href="/signup" className="text-[#0000FF]">
+                  Sign up
+                </a>
               </FieldDescription>
-
             </FieldGroup>
           </form>
 
@@ -94,5 +103,5 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
