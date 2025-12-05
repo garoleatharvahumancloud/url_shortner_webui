@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="w-full flex items-center justify-between px-10 py-4  bg-white">
+    <nav className="w-full flex items-center justify-between px-4 md:px-10 py-4 bg-white">
       {/* Logo */}
       <div className="text-2xl font-bold tracking-wide text-[#224fa2]">
         <Link href="/">Cloud62.hc</Link>
