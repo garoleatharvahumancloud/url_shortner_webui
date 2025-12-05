@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-linear-to-t from-blue-200 from-40% via-blue-100 via-60% to-white to-90%">
       <Navbar />
 
       {/* Main Layout Container */}
@@ -17,16 +17,6 @@ export default function HomePage() {
           <QrCodeCard />
         </div>
 
-        {/* Right side - Illustration */}
-        <div className=" flex-1 hidden md:flex justify-center">
-          <Image
-            src="/bgdsadf.jpg"   //image placeholder_ag
-            alt="Illustration"
-            width={450}
-            height={450}
-            className="object-contain"
-          />
-        </div>
 
       </div>
     </div>
