@@ -13,32 +13,39 @@ import {
 import { Input } from "@/components/ui/input";
 import { loginUser } from "@/app/api/methods";
 import { useState } from "react";
-import { useRouter } from "next/navigation";   // ✅ ADD THIS
+import { useRouter } from "next/navigation";
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
-  const router = useRouter();                  // ✅ INIT ROUTER
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const result = await loginUser({
-      email,
-      password,
-    });
+    try {
+      const result = await loginUser({ email, password });
 
-    // Save token
-    localStorage.setItem("token", result.token);
+      // Handle backend response format
+      const token = result?.token || result?.data?.token;
 
-    // Redirect to HOME (not history)
-    window.location.href = "/";
+      if (!token) {
+        console.error("Token not found in response");
+        return;
+      }
 
-  } catch (error) {
-    console.error("LOGIN ERROR:", error);
-  }
-};
+      // Save JWT token
+      localStorage.setItem("token", token);
+
+      // Redirect user
+      router.push("/");            // NEXT.JS WAY ✔
+      // OR window.location.href = "/" (works too)
+
+    } catch (error) {
+      console.error("LOGIN ERROR:", error);
+    }
+  };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -49,7 +56,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
               <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
                 <p className="text-muted-foreground text-balance">
-                  Login to your <span className="text-[#224FA2] font-bold">Cloud62</span> account
+                  Login to your{" "}
+                  <span className="text-[#224FA2] font-bold">Cloud62</span>{" "}
+                  account
                 </p>
               </div>
 
@@ -77,7 +86,10 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
               </Field>
 
               <Field>
-                <Button className="bg-[#224FA2] hover:bg-[#3A63B0]" type="submit">
+                <Button
+                  className="bg-[#224FA2] hover:bg-[#3A63B0]"
+                  type="submit"
+                >
                   Login
                 </Button>
               </Field>
