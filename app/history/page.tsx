@@ -122,10 +122,10 @@ function HistoryPageContent() {
 
                       <TableCell>
                         <a
-                          href={"localhost/8080/"+url.shortCode}
+                          href={"https://cloud62-backend.onrender.com/"+url.shortCode}
                           className="text-blue-600 hover:underline"
                         >
-                          {"localhost/8080/"+url.shortCode}
+                          {"https://cloud62-backend.onrender.com/"+url.shortCode}
                         </a>
                       </TableCell>
 
