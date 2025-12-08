@@ -15,6 +15,7 @@ import { createShortUrl } from "@/app/api/methods";
 export function UrlShortenCard() {
   const [longUrl, setLongUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
+  const [copied, setCopied] = useState(false);
 
   async function handleShorten() {
     if (!longUrl.trim()) return;
@@ -37,6 +38,17 @@ export function UrlShortenCard() {
       console.error("Error:", err);
     }
   }
+    async function handleCopy() {
+    if (!shortUrl) return;
+    try {
+      await navigator.clipboard.writeText(shortUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Clipboard write failed:", err);
+    }
+  }
+
 
   return (
     <Card className="w-100 p-6 shadow-xl rounded-2xl">
@@ -71,6 +83,7 @@ export function UrlShortenCard() {
             />
 
             <Button
+              onClick={handleCopy}
               variant="outline"
               className="rounded-l-none border-l border-gray-300 border"
             >
